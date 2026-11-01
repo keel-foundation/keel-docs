@@ -15,5 +15,5 @@
 - `keel-core` — API and domain.
 - `keel-pipeline` — media pipeline.
 - `keel-moderation` — signals, cases, appeals, ledger.
-- `keel-web` — viewer and watch page, creator studio, and creator moderation record. Staff moderation is a separate portal.
+- `keel-web` — viewer and watch page, creator studio, and creator moderation record. Private and maintainer-only; staff moderation is a separate portal.
 - `keel-docs` — this documentation.

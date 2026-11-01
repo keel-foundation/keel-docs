@@ -103,7 +103,10 @@ In another terminal:
 The contract tests validate responses against `keel-spec`. Clone `keel-spec` as a sibling of
 `keel-moderation` (`../keel-spec`) to run them; otherwise those tests skip.
 
-### Web
+### Web (private, maintainers only)
+
+`keel-web` is private until the maintainer pool is established. The commands below are for
+maintainers with access.
 
 ```sh
 git clone https://github.com/keel-foundation/keel-web.git

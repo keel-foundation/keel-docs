@@ -34,13 +34,14 @@ This is a mocked, scripted demo, not a production service. The classifier is syn
 reviewer is simulated, and the ledger is browser-local. There is no real authentication,
 database, classifier, or independent review. Do not expose the demo to the public internet.
 
-For the production web interface, see the `keel-web` README. It uses a local data adapter by
-default; API mode is reserved for when core is connected.
+The production web client lives in the private `keel-web` repository. It is available to
+maintainers only for now. Public contributors do not need access to it.
 
 ## Local web workspace (maintainers)
 
-The web client is fully built against a local data adapter. From a workspace with the private
-`keel-infra` repository, you can also start the backend stack for service development:
+The `keel-web` repository is private. Maintainers with access can run the web client against a
+local data adapter. From a workspace with the private `keel-infra` repository, you can also start
+the backend stack for service development:
 
 ```sh
 docker compose -f keel-infra/devstack/apps.compose.yml up -d --build
