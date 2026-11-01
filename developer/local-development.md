@@ -112,12 +112,16 @@ npm ci
 npm run dev -- -H 127.0.0.1
 ```
 
-The web app runs at `http://localhost:3000`. The landing page and `/demo` work without extra
-services; `/watch/[id]` needs core with the demo seed:
+The web app runs at `http://localhost:3000`. The public feed, watch page, and channel page use
+local preview data by default and need no backend:
 
 ```sh
-open http://localhost:3000/watch/vid_demo_001
+open http://localhost:3000
+open http://localhost:3000/watch/vid_last_lighthouse
+open http://localhost:3000/channels/ch_maravale
 ```
+
+Set `NEXT_PUBLIC_DATA_SOURCE=api` to use core instead of preview data.
 
 Checks:
 
@@ -169,12 +173,11 @@ The private dev stack includes PostgreSQL, the core seed job, core, pipeline, an
 docker compose -f keel-infra/devstack/apps.compose.yml up -d --build
 ```
 
-Then run the web app on the host:
+Then run the web app on the host against the API:
 
 ```sh
 cd keel-web
-npm ci
-npm run dev -- -H 127.0.0.1
+NEXT_PUBLIC_DATA_SOURCE=api npm run dev -- -H 127.0.0.1
 ```
 
 Open `http://localhost:3000/watch/vid_demo_001`.
@@ -197,7 +200,8 @@ material to a public repository. If private repositories are present in the same
 - The public `keel-dev` demo is mocked: the signal is synthetic and the flow is scripted.
 - Core has PostgreSQL persistence for actors, channels, and videos, but upload, transcoding,
   subscriptions, and production auth are not implemented.
-- The watch page plays the demo clip with MP4 fallback; HLS is not implemented yet.
+- The watch page uses local mock media in preview mode; HLS is not implemented yet.
 - The moderation workflow is persisted in SQLite; the audit ledger is append-only JSONL, not
   PostgreSQL plus an external anchor.
-- The `/demo` page is a demonstration, not a production moderation console.
+- The studio and moderation routes are branded shells. They are not connected to creator sessions
+  or the moderation service yet.
