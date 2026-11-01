@@ -26,4 +26,8 @@ These rights do not create an unmoderated platform. Spam, scams, fraud, piracy, 
 
 ## Status
 
-The Project is pre-alpha. The current public artifact is a local appeal demo. Upload, payouts, federation, content protection, and the production moderation console are not implemented yet. The demo is honest about its synthetic classifier and local-only ledger; do not treat it as the production system.
+The Project is pre-alpha. The current public artifacts are a local appeal demo in `keel-dev` and a
+local watch-page demo in `keel-web`, backed by a PostgreSQL core. Upload, transcoding, HLS,
+payouts, federation, content protection, and the production moderation console are not implemented
+yet. The demos are honest about their synthetic classifier, local-only ledger, and dev-only auth;
+do not treat them as the production system.

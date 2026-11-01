@@ -42,16 +42,32 @@ You do not need to clone the ecosystem. Clone only the repository you are changi
 
 ### Core
 
+Core needs PostgreSQL. Point `TUBEKEEL_DATABASE_URL` at a local database, seed it, then run the
+API:
+
 ```sh
 git clone https://github.com/keel-foundation/keel-core.git
 cd keel-core
+
+export TUBEKEEL_DATABASE_URL='postgres://tubekeel:tubekeel-dev@127.0.0.1:5432/tubekeel?sslmode=disable'
+go run ./cmd/seed
 go run ./cmd/api
-go test ./...
+```
+
+Core listens on `127.0.0.1:8080` by default. The seed is idempotent and creates the demo actor,
+channel, and three video fixtures.
+
+Database tests need a test database and serialized packages:
+
+```sh
+TUBEKEEL_TEST_DATABASE_URL='postgres://tubekeel:tubekeel-dev@127.0.0.1:5432/tubekeel?sslmode=disable' \
+  go test -p 1 ./...
 go vet ./...
 gofmt -l .
 ```
 
-Core listens on `127.0.0.1:8080` by default.
+Without `TUBEKEEL_TEST_DATABASE_URL`, the database tests skip. The CI workflow provides a
+PostgreSQL service.
 
 ### Pipeline
 
@@ -96,13 +112,27 @@ npm ci
 npm run dev -- -H 127.0.0.1
 ```
 
-The web app runs at `http://localhost:3000`. Checks:
+The web app runs at `http://localhost:3000`. The landing page and `/demo` work without extra
+services; `/watch/[id]` needs core with the demo seed:
+
+```sh
+open http://localhost:3000/watch/vid_demo_001
+```
+
+Checks:
 
 ```sh
 npm test
 npm run typecheck
 npm run build
 npm run format:check
+```
+
+Watch-page E2E (requires the backend stack and a Playwright browser):
+
+```sh
+npx playwright install chromium
+npm run test:e2e
 ```
 
 ### Spec
@@ -131,6 +161,24 @@ Use stage endpoints for services you are not changing. The demo server keeps the
 server-side. See [stage mode](https://github.com/keel-foundation/keel-dev/blob/main/docs/staging.md)
 in the `keel-dev` repository.
 
+## Backend in Docker (maintainers only)
+
+The private dev stack includes PostgreSQL, the core seed job, core, pipeline, and moderation:
+
+```sh
+docker compose -f keel-infra/devstack/apps.compose.yml up -d --build
+```
+
+Then run the web app on the host:
+
+```sh
+cd keel-web
+npm ci
+npm run dev -- -H 127.0.0.1
+```
+
+Open `http://localhost:3000/watch/vid_demo_001`.
+
 ## Full-stack development (maintainers only)
 
 Full-stack local setup is reserved for the author and maintainer group. It lives in the private
@@ -146,7 +194,10 @@ material to a public repository. If private repositories are present in the same
 
 ## Limitations
 
-- The public demo is mocked: the signal is synthetic and the flow is scripted.
-- There is no production auth, database, queue, or object storage integration yet.
-- The moderation ledger is append-only JSONL, not PostgreSQL plus an external anchor.
+- The public `keel-dev` demo is mocked: the signal is synthetic and the flow is scripted.
+- Core has PostgreSQL persistence for actors, channels, and videos, but upload, transcoding,
+  subscriptions, and production auth are not implemented.
+- The watch page plays the demo clip with MP4 fallback; HLS is not implemented yet.
+- The moderation workflow is persisted in SQLite; the audit ledger is append-only JSONL, not
+  PostgreSQL plus an external anchor.
 - The `/demo` page is a demonstration, not a production moderation console.

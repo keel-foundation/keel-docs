@@ -15,5 +15,5 @@
 - `keel-core` — API and domain.
 - `keel-pipeline` — media pipeline.
 - `keel-moderation` — signals, cases, appeals, ledger.
-- `keel-web` — viewer demo, creator studio, moderation console.
+- `keel-web` — viewer and watch page, creator studio, moderation console.
 - `keel-docs` — this documentation.

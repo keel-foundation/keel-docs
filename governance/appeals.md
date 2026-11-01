@@ -33,7 +33,10 @@ Every enforcement action is appealable. This is the public summary of the appeal
 
 ## Current demo
 
-The local demo implements the action, appeal, independent review, reversal, and ledger record. It uses a synthetic signal and a fixed demo reviewer. The production appeals service, SLA timers, reviewer assignment, and second-level escalation are backlog work.
+The local demo implements the action, appeal, independent review, reversal, and ledger record. It
+uses a synthetic signal, role-separated creator/moderator/appeals tokens, and enforced reviewer
+independence: an appellant cannot decide their own appeal, and the original decision-maker cannot
+decide it. SLA timers, reviewer assignment, and second-level escalation remain backlog work.
 
 ## Independent oversight
 

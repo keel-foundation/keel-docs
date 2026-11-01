@@ -1,15 +1,19 @@
 # API
 
-**Status:** local demo contract. The v1 target surface is in RFC-0001 and `keel-spec/schemas/openapi.yaml`.
+**Status:** local demo contract. Core is PostgreSQL-backed; moderation remains SQLite plus JSONL.
+The v1 target surface is in RFC-0001 and `keel-spec/schemas/openapi.yaml`.
 
 ## Core
 
 | Method | Path | Purpose |
 |---|---|---|
-| `GET` | `/health` | Liveness |
+| `GET` | `/health` | Liveness and database ping |
 | `GET` | `/api/v1/channels/demo` | Demo channel |
+| `GET` | `/api/v1/channels/{id}` | Channel by id |
 | `GET` | `/api/v1/videos/demo` | Demo video |
+| `GET` | `/api/v1/videos/{id}` | Video by id |
 | `GET` | `/api/v1/demo` | Demo video and channel |
+| `GET` | `/api/v1/me` | Current dev principal |
 
 ## Moderation
 
@@ -48,7 +52,12 @@ authorization, per-creator scoping, and redaction before exposing those endpoint
 | Variable | Service | Default |
 |---|---|---|
 | `TUBEKEEL_CORE_ADDR` | core | `127.0.0.1:8080` |
+| `TUBEKEEL_DATABASE_URL` | core | `postgres://tubekeel:tubekeel-dev@127.0.0.1:5432/tubekeel?sslmode=disable` |
+| `TUBEKEEL_DEV_ACTOR_ID` | core | `usr_demo` |
+| `TUBEKEEL_DEV_ACTOR_TOKEN` | core | unset |
 | `TUBEKEEL_PIPELINE_ADDR` | pipeline | `127.0.0.1:8081` |
+| `TUBEKEEL_PIPELINE_PUBLIC_URL` | core seed | `http://localhost:8081` |
+| `TUBEKEEL_WEB_PUBLIC_URL` | core seed | `http://localhost:3000` |
 | `TUBEKEEL_CORS_ORIGINS` | core, pipeline, moderation | `http://localhost:3000` |
 | `TUBEKEEL_LEDGER_PATH` | moderation | `data/ledger.jsonl` |
 | `TUBEKEEL_STATE_DB` | moderation | `data/state.sqlite3` |

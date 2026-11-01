@@ -36,3 +36,18 @@ database, classifier, or independent review. Do not expose the demo to the publi
 
 For the optional Next.js demo that calls the local moderation service, see the `keel-web`
 README and the `keel-moderation` README.
+
+## Local watch page (maintainers)
+
+The real watch page uses the PostgreSQL-backed core service. From a workspace with the private
+`keel-infra` repository:
+
+```sh
+docker compose -f keel-infra/devstack/apps.compose.yml up -d --build
+cd keel-web
+npm ci
+npm run dev -- -H 127.0.0.1
+```
+
+Open `http://localhost:3000/watch/vid_demo_001`. The stack seeds the published, removed, and
+private demo fixtures automatically.
