@@ -112,27 +112,33 @@ npm ci
 npm run dev
 ```
 
-The web app runs at `http://localhost:3000`. The public feed, watch page, and channel page use
-local preview data by default and need no backend:
+The web app runs at `http://localhost:3000`. The public feed, watch page, channel page, search,
+library, creator studio, and moderation console use local preview data by default and need no
+backend:
 
 ```sh
 open http://localhost:3000
-open http://localhost:3000/watch/vid_last_lighthouse
+open http://localhost:3000/watch/ksKCMmvOxwQ
 open http://localhost:3000/channels/ch_maravale
+open http://localhost:3000/studio
+open http://localhost:3000/moderation
 ```
 
-API mode is reserved for when core is connected; the current web app reads preview data.
+API mode is reserved for when core is connected; the current web app reads preview data. The
+studio and moderation console use a mock session and a mock reviewer role; they are not production
+access control.
 
 Checks:
 
 ```sh
+npm run lint
 npm test
 npm run typecheck
 npm run build
 npm run format:check
 ```
 
-Watch-page E2E (requires the backend stack and a Playwright browser):
+E2E starts the Vite dev server and uses preview data. No backend stack is required:
 
 ```sh
 npx playwright install chromium
@@ -204,5 +210,6 @@ material to a public repository. If private repositories are present in the same
 - The watch page uses local mock media in preview mode; HLS is not implemented yet.
 - The moderation workflow is persisted in SQLite; the audit ledger is append-only JSONL, not
   PostgreSQL plus an external anchor.
-- The studio and moderation routes are branded shells. They are not connected to creator sessions
-  or the moderation service yet.
+- The web studio and moderation console are fully built against preview data, but they are not
+  connected to creator sessions, the core API, or the moderation service yet. The moderation
+  console uses a mock role switcher and must not be exposed as a production surface.

@@ -37,10 +37,10 @@ database, classifier, or independent review. Do not expose the demo to the publi
 For the production web interface, see the `keel-web` README. It uses local preview data by
 default; API mode is reserved for when core is connected.
 
-## Local watch page (maintainers)
+## Local web preview (maintainers)
 
-The real watch page uses the PostgreSQL-backed core service. From a workspace with the private
-`keel-infra` repository:
+The web client is fully built against local preview data. From a workspace with the private
+`keel-infra` repository, you can also start the backend stack for service development:
 
 ```sh
 docker compose -f keel-infra/devstack/apps.compose.yml up -d --build
@@ -49,5 +49,6 @@ npm ci
 npm run dev
 ```
 
-Open `http://localhost:3000/watch/vid_last_lighthouse`. The web app currently uses local preview
-data; the core watch page will be wired when the core read APIs are connected.
+Open `http://localhost:3000/watch/ksKCMmvOxwQ`. The web app still uses local preview data;
+the watch, studio, and moderation surfaces will be wired when the core read APIs and sessions are
+connected.
