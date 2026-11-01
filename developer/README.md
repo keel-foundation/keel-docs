@@ -10,7 +10,7 @@
 
 ## Repositories
 
-- `keel-dev` — workspace, local stack, scripts.
+- `keel-dev` — public demo and contribution hub.
 - `keel-spec` — RFCs, schemas, OpenAPI.
 - `keel-core` — API and domain.
 - `keel-pipeline` — media pipeline.
