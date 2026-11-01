@@ -34,8 +34,8 @@ This is a mocked, scripted demo, not a production service. The classifier is syn
 reviewer is simulated, and the ledger is browser-local. There is no real authentication,
 database, classifier, or independent review. Do not expose the demo to the public internet.
 
-For the optional Next.js demo that calls the local moderation service, see the `keel-web`
-README and the `keel-moderation` README.
+For the production web interface, see the `keel-web` README. It uses local preview data by
+default; API mode is reserved for when core is connected.
 
 ## Local watch page (maintainers)
 
@@ -46,8 +46,8 @@ The real watch page uses the PostgreSQL-backed core service. From a workspace wi
 docker compose -f keel-infra/devstack/apps.compose.yml up -d --build
 cd keel-web
 npm ci
-npm run dev -- -H 127.0.0.1
+npm run dev
 ```
 
-Open `http://localhost:3000/watch/vid_demo_001`. The stack seeds the published, removed, and
-private demo fixtures automatically.
+Open `http://localhost:3000/watch/vid_last_lighthouse`. The web app currently uses local preview
+data; the core watch page will be wired when the core read APIs are connected.

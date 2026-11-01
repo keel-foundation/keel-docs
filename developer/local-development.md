@@ -109,7 +109,7 @@ The contract tests validate responses against `keel-spec`. Clone `keel-spec` as 
 git clone https://github.com/keel-foundation/keel-web.git
 cd keel-web
 npm ci
-npm run dev -- -H 127.0.0.1
+npm run dev
 ```
 
 The web app runs at `http://localhost:3000`. The public feed, watch page, and channel page use
@@ -121,7 +121,7 @@ open http://localhost:3000/watch/vid_last_lighthouse
 open http://localhost:3000/channels/ch_maravale
 ```
 
-Set `NEXT_PUBLIC_DATA_SOURCE=api` to use core instead of preview data.
+API mode is reserved for when core is connected; the current web app reads preview data.
 
 Checks:
 
@@ -173,14 +173,15 @@ The private dev stack includes PostgreSQL, the core seed job, core, pipeline, an
 docker compose -f keel-infra/devstack/apps.compose.yml up -d --build
 ```
 
-Then run the web app on the host against the API:
+Then run the web app on the host:
 
 ```sh
 cd keel-web
-NEXT_PUBLIC_DATA_SOURCE=api npm run dev -- -H 127.0.0.1
+npm run dev
 ```
 
-Open `http://localhost:3000/watch/vid_demo_001`.
+Open `http://localhost:3000`. The web app currently reads local preview data; the backend stack is
+for service development.
 
 ## Full-stack development (maintainers only)
 
