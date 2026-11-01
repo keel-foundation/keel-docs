@@ -2,7 +2,7 @@
 
 ## Current status
 
-TubeKeel is pre-alpha. Core has a PostgreSQL-backed watch-page demo, and moderation has a
+KeelTube is pre-alpha. Core has a PostgreSQL-backed watch-page demo, and moderation has a
 role-separated creator-appeal demo. Upload, transcoding, subscriptions, payouts, federation,
 content protection, and the production moderation console are not implemented yet. The public
 artifacts are the local appeal demo in `keel-dev` and the local watch page in `keel-web`.

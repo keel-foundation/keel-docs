@@ -36,9 +36,9 @@ The v1 target surface is in RFC-0001 and `keel-spec/schemas/openapi.yaml`.
 ### Roles
 
 The service supports `creator`, `moderator`, and `appeals` roles. Set
-`TUBEKEEL_CREATOR_TOKEN`, `TUBEKEEL_MODERATOR_TOKEN`, and `TUBEKEEL_APPEALS_TOKEN` to three
+`KEELTUBE_CREATOR_TOKEN`, `KEELTUBE_MODERATOR_TOKEN`, and `KEELTUBE_APPEALS_TOKEN` to three
 distinct values to enforce them. If they are unset, the service runs in open local mode. The
-legacy `TUBEKEEL_DEMO_TOKEN` simulates all three roles with one token.
+legacy `KEELTUBE_DEMO_TOKEN` simulates all three roles with one token.
 
 The appeals reviewer must differ from the original decision-maker and from the appellant. The
 moderation service enforces this; the web client must not be the only guard.
@@ -51,21 +51,21 @@ authorization, per-creator scoping, and redaction before exposing those endpoint
 
 | Variable | Service | Default |
 |---|---|---|
-| `TUBEKEEL_CORE_ADDR` | core | `127.0.0.1:8080` |
-| `TUBEKEEL_DATABASE_URL` | core | `postgres://tubekeel:tubekeel-dev@127.0.0.1:5432/tubekeel?sslmode=disable` |
-| `TUBEKEEL_DEV_ACTOR_ID` | core | `usr_demo` |
-| `TUBEKEEL_DEV_ACTOR_TOKEN` | core | unset |
-| `TUBEKEEL_PIPELINE_ADDR` | pipeline | `127.0.0.1:8081` |
-| `TUBEKEEL_PIPELINE_PUBLIC_URL` | core seed | `http://localhost:8081` |
-| `TUBEKEEL_WEB_PUBLIC_URL` | core seed | `http://localhost:3000` |
-| `TUBEKEEL_CORS_ORIGINS` | core, pipeline, moderation | `http://localhost:3000` |
-| `TUBEKEEL_LEDGER_PATH` | moderation | `data/ledger.jsonl` |
-| `TUBEKEEL_STATE_DB` | moderation | `data/state.sqlite3` |
-| `TUBEKEEL_RATE_LIMIT` | moderation | `30` mutating requests per IP per minute |
-| `TUBEKEEL_DEMO_TOKEN` | moderation, web | unset |
-| `TUBEKEEL_CREATOR_TOKEN` | moderation | unset |
-| `TUBEKEEL_MODERATOR_TOKEN` | moderation | unset |
-| `TUBEKEEL_APPEALS_TOKEN` | moderation | unset |
+| `KEELTUBE_CORE_ADDR` | core | `127.0.0.1:8080` |
+| `KEELTUBE_DATABASE_URL` | core | `postgres://keeltube:keeltube-dev@127.0.0.1:5432/keeltube?sslmode=disable` |
+| `KEELTUBE_DEV_ACTOR_ID` | core | `usr_demo` |
+| `KEELTUBE_DEV_ACTOR_TOKEN` | core | unset |
+| `KEELTUBE_PIPELINE_ADDR` | pipeline | `127.0.0.1:8081` |
+| `KEELTUBE_PIPELINE_PUBLIC_URL` | core seed | `http://localhost:8081` |
+| `KEELTUBE_WEB_PUBLIC_URL` | core seed | `http://localhost:3000` |
+| `KEELTUBE_CORS_ORIGINS` | core, pipeline, moderation | `http://localhost:3000` |
+| `KEELTUBE_LEDGER_PATH` | moderation | `data/ledger.jsonl` |
+| `KEELTUBE_STATE_DB` | moderation | `data/state.sqlite3` |
+| `KEELTUBE_RATE_LIMIT` | moderation | `30` mutating requests per IP per minute |
+| `KEELTUBE_DEMO_TOKEN` | moderation, web | unset |
+| `KEELTUBE_CREATOR_TOKEN` | moderation | unset |
+| `KEELTUBE_MODERATOR_TOKEN` | moderation | unset |
+| `KEELTUBE_APPEALS_TOKEN` | moderation | unset |
 
 ## Errors
 

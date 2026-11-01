@@ -53,7 +53,7 @@ The service supports three roles:
 
 In role-enforced mode, each role uses a separate bearer token. The fixed demo identities are
 `creator:demo`, `demo-reviewer`, and `demo-appeals-reviewer`. In open local mode, each endpoint
-acts as its fixed demo identity. In legacy `TUBEKEEL_DEMO_TOKEN` mode, one token simulates all
+acts as its fixed demo identity. In legacy `KEELTUBE_DEMO_TOKEN` mode, one token simulates all
 three.
 
 ## What is still missing

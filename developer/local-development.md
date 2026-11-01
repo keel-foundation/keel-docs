@@ -2,7 +2,7 @@
 
 **Last reviewed:** 1 November 2026
 
-This page covers running the **public** TubeKeel modules and the **mock demo**. It does not
+This page covers running the **public** KeelTube modules and the **mock demo**. It does not
 describe the private production stack.
 
 There is no all-in-one public `make` target for the whole ecosystem. Use the command for the
@@ -42,14 +42,14 @@ You do not need to clone the ecosystem. Clone only the repository you are changi
 
 ### Core
 
-Core needs PostgreSQL. Point `TUBEKEEL_DATABASE_URL` at a local database, seed it, then run the
+Core needs PostgreSQL. Point `KEELTUBE_DATABASE_URL` at a local database, seed it, then run the
 API:
 
 ```sh
 git clone https://github.com/keel-foundation/keel-core.git
 cd keel-core
 
-export TUBEKEEL_DATABASE_URL='postgres://tubekeel:tubekeel-dev@127.0.0.1:5432/tubekeel?sslmode=disable'
+export KEELTUBE_DATABASE_URL='postgres://keeltube:keeltube-dev@127.0.0.1:5432/keeltube?sslmode=disable'
 go run ./cmd/seed
 go run ./cmd/api
 ```
@@ -60,13 +60,13 @@ channel, and three video fixtures.
 Database tests need a test database and serialized packages:
 
 ```sh
-TUBEKEEL_TEST_DATABASE_URL='postgres://tubekeel:tubekeel-dev@127.0.0.1:5432/tubekeel?sslmode=disable' \
+KEELTUBE_TEST_DATABASE_URL='postgres://keeltube:keeltube-dev@127.0.0.1:5432/keeltube?sslmode=disable' \
   go test -p 1 ./...
 go vet ./...
 gofmt -l .
 ```
 
-Without `TUBEKEEL_TEST_DATABASE_URL`, the database tests skip. The CI workflow provides a
+Without `KEELTUBE_TEST_DATABASE_URL`, the database tests skip. The CI workflow provides a
 PostgreSQL service.
 
 ### Pipeline
@@ -151,9 +151,9 @@ The public demo can proxy to local services while you work:
 
 ```sh
 cd keel-dev
-TUBEKEEL_MODE=remote \
-TUBEKEEL_API_BASE_URL=http://127.0.0.1:8080 \
-TUBEKEEL_MODERATION_BASE_URL=http://127.0.0.1:8082 \
+KEELTUBE_MODE=remote \
+KEELTUBE_API_BASE_URL=http://127.0.0.1:8080 \
+KEELTUBE_MODERATION_BASE_URL=http://127.0.0.1:8082 \
 make demo
 ```
 
