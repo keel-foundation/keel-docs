@@ -4,9 +4,10 @@
 
 KeelTube is pre-alpha. Core has a PostgreSQL-backed watch-page demo, and moderation has a
 role-separated creator-appeal demo. Upload, transcoding, subscriptions, payouts, federation,
-content protection, and the production moderation console are not implemented yet. The public
-artifacts are the local appeal demo in `keel-dev` and the fully built preview UI in `keel-web`
-(feed, watch, channels, search, library, creator studio, and moderation console).
+content protection, and the production staff moderation portal are not implemented yet. The
+public artifacts are the local appeal demo in `keel-dev` and the fully built web client in
+`keel-web` (feed, watch, channels, search, library, creator studio, and creator moderation record).
+Staff moderation is a separate portal with its own privileged session.
 
 ## Guides
 

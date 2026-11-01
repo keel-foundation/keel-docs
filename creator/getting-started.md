@@ -34,12 +34,12 @@ This is a mocked, scripted demo, not a production service. The classifier is syn
 reviewer is simulated, and the ledger is browser-local. There is no real authentication,
 database, classifier, or independent review. Do not expose the demo to the public internet.
 
-For the production web interface, see the `keel-web` README. It uses local preview data by
+For the production web interface, see the `keel-web` README. It uses a local data adapter by
 default; API mode is reserved for when core is connected.
 
-## Local web preview (maintainers)
+## Local web workspace (maintainers)
 
-The web client is fully built against local preview data. From a workspace with the private
+The web client is fully built against a local data adapter. From a workspace with the private
 `keel-infra` repository, you can also start the backend stack for service development:
 
 ```sh
@@ -49,6 +49,6 @@ npm ci
 npm run dev
 ```
 
-Open `http://localhost:3000/watch/ksKCMmvOxwQ`. The web app still uses local preview data;
-the watch, studio, and moderation surfaces will be wired when the core read APIs and sessions are
-connected.
+Open `http://localhost:3000/watch/ksKCMmvOxwQ`. The web app still reads through the local data
+adapter; the watch, studio, and creator moderation surfaces will be wired when the core read APIs
+and sessions are connected.

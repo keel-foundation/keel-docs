@@ -36,7 +36,9 @@ Every enforcement action is appealable. This is the public summary of the appeal
 The local demo implements the action, appeal, independent review, reversal, and ledger record. It
 uses a synthetic signal, role-separated creator/moderator/appeals tokens, and enforced reviewer
 independence: an appellant cannot decide their own appeal, and the original decision-maker cannot
-decide it. SLA timers, reviewer assignment, and second-level escalation remain backlog work.
+decide it. The creator web app exposes the creator side of this flow; staff review happens in a
+separate moderation portal. SLA timers, reviewer assignment, and second-level escalation remain
+backlog work.
 
 ## Independent oversight
 

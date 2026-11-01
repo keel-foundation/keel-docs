@@ -20,7 +20,7 @@ module you are changing. The public `keel-dev` Makefile provides `make demo`, `m
 ## Run the public mock demo
 
 The demo is scripted and mocked. It is not a production system and does not include a real
-classifier, authentication, database, upload path, or production moderation console.
+classifier, authentication, database, upload path, or production staff moderation portal.
 
 ```sh
 git clone https://github.com/keel-foundation/keel-dev.git
@@ -113,7 +113,7 @@ npm run dev
 ```
 
 The web app runs at `http://localhost:3000`. The public feed, watch page, channel page, search,
-library, creator studio, and moderation console use local preview data by default and need no
+library, creator studio, and creator moderation record use the local data adapter and need no
 backend:
 
 ```sh
@@ -121,12 +121,13 @@ open http://localhost:3000
 open http://localhost:3000/watch/ksKCMmvOxwQ
 open http://localhost:3000/channels/ch_maravale
 open http://localhost:3000/studio
-open http://localhost:3000/moderation
+open http://localhost:3000/studio/moderation
 ```
 
-API mode is reserved for when core is connected; the current web app reads preview data. The
-studio and moderation console use a mock session and a mock reviewer role; they are not production
-access control.
+API mode is reserved for when core is connected; the current web app reads through the local data
+adapter. The creator studio and creator moderation record use a local workspace session; they are
+not production access control. Staff moderation is a separate portal with its own privileged
+session.
 
 Checks:
 
@@ -138,7 +139,7 @@ npm run build
 npm run format:check
 ```
 
-E2E starts the Vite dev server and uses preview data. No backend stack is required:
+E2E starts the Vite dev server and uses the local data adapter. No backend stack is required:
 
 ```sh
 npx playwright install chromium
@@ -186,8 +187,8 @@ cd keel-web
 npm run dev
 ```
 
-Open `http://localhost:3000`. The web app currently reads local preview data; the backend stack is
-for service development.
+Open `http://localhost:3000`. The web app currently reads through the local data adapter; the
+backend stack is for service development.
 
 ## Full-stack development (maintainers only)
 
@@ -207,9 +208,9 @@ material to a public repository. If private repositories are present in the same
 - The public `keel-dev` demo is mocked: the signal is synthetic and the flow is scripted.
 - Core has PostgreSQL persistence for actors, channels, and videos, but upload, transcoding,
   subscriptions, and production auth are not implemented.
-- The watch page uses local mock media in preview mode; HLS is not implemented yet.
+- The watch page uses sample media in this phase; HLS is not implemented yet.
 - The moderation workflow is persisted in SQLite; the audit ledger is append-only JSONL, not
   PostgreSQL plus an external anchor.
-- The web studio and moderation console are fully built against preview data, but they are not
-  connected to creator sessions, the core API, or the moderation service yet. The moderation
-  console uses a mock role switcher and must not be exposed as a production surface.
+- The web studio and creator moderation record are fully built against the local data adapter, but
+  they are not connected to creator sessions, the core API, or the moderation service yet. Staff
+  moderation is a separate portal; the creator app does not expose moderator actions.
