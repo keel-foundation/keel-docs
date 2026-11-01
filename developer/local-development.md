@@ -118,6 +118,7 @@ backend:
 
 ```sh
 open http://localhost:3000
+open http://localhost:3000/explore
 open http://localhost:3000/watch/ksKCMmvOxwQ
 open http://localhost:3000/channels/ch_maravale
 open http://localhost:3000/studio
