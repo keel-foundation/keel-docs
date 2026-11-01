@@ -1,25 +1,22 @@
 # Try the local appeal demo
 
-**Last reviewed:** 31 October 2026
+**Last reviewed:** 1 November 2026
 
 ## Prerequisites
 
-- Node.js 22+
 - Python 3.9+
-- `curl`
-- `nc`
-- Go 1.23+ is optional; without it the UI uses the bundled sample clip.
+
+The public mock demo has no backend, database, Node.js, or Go requirement.
 
 ## Run
 
 ```sh
 git clone https://github.com/keel-foundation/keel-dev.git
 cd keel-dev
-./scripts/bootstrap-dev.sh
 make demo
 ```
 
-Open the URL printed by the script, usually `http://localhost:3000/demo`.
+Open `http://localhost:3000`. Use `make demo-open` to open the browser automatically.
 
 ## What you will see
 
@@ -29,6 +26,13 @@ Open the URL printed by the script, usually `http://localhost:3000/demo`.
 4. An independent appeals reviewer reverses the action with written reasoning.
 5. The audit ledger shows the chain, verification result, and JSONL export.
 
+The whole flow runs in the browser tab. Reloading the page starts again from the initial state.
+
 ## What this is not
 
-This is a local demo, not a production service. The classifier is synthetic, authentication is optional, and the ledger is a local JSONL file. Do not expose the demo to the public internet.
+This is a mocked, scripted demo, not a production service. The classifier is synthetic, the
+reviewer is simulated, and the ledger is browser-local. There is no real authentication,
+database, classifier, or independent review. Do not expose the demo to the public internet.
+
+For the optional Next.js demo that calls the local moderation service, see the `keel-web`
+README and the `keel-moderation` README.

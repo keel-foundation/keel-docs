@@ -9,4 +9,4 @@ permissions:
 
 jobs:
   docs:
-    uses: keel-foundation/.github/.github/workflows/docs-ci.yml@main
+    uses: keel-foundation/.github/.github/workflows/docs-ci.yml@b10fea5cfdb6d01876e3c5c9dcd0993ea54f3a41 # pinned for supply-chain safety
