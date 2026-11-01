@@ -122,6 +122,7 @@ open http://localhost:3000/explore
 open http://localhost:3000/watch/ksKCMmvOxwQ
 open http://localhost:3000/channels/ch_maravale
 open http://localhost:3000/studio
+open http://localhost:3000/studio/videos
 open http://localhost:3000/studio/moderation
 ```
 
