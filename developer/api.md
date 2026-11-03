@@ -5,15 +5,26 @@ The v1 target surface is in RFC-0001 and `keel-spec/schemas/openapi.yaml`.
 
 ## Core
 
-| Method | Path | Purpose |
-|---|---|---|
-| `GET` | `/health` | Liveness and database ping |
-| `GET` | `/api/v1/channels/demo` | Demo channel |
-| `GET` | `/api/v1/channels/{id}` | Channel by id |
-| `GET` | `/api/v1/videos/demo` | Demo video |
-| `GET` | `/api/v1/videos/{id}` | Video by id |
-| `GET` | `/api/v1/demo` | Demo video and channel |
-| `GET` | `/api/v1/me` | Current dev principal |
+The complete core contract is in `keel-spec/schemas/openapi.yaml`. The groups are:
+
+- Catalog and discovery: feed, Explore, videos, related videos, shorts, search, categories,
+  channels, and channel videos.
+- Identity: register, email verification, login, logout, session, CSRF, and password reset.
+- Viewer state: subscriptions, subscription feed, library, history, reactions, saves, comments,
+  comment likes, and notifications.
+- Creator Studio: channel, video CRUD, publish/unpublish, immutable versions, thumbnails, subtitles,
+  uploads, scans, stats, and analytics.
+- Media gateway: MP4, thumbnails, captions, subtitles, and HLS playback through short-lived
+  presigned redirects.
+- Notifications: `/api/v1/me/notifications`, unread count, read/read-all, and the optional
+  `/internal/v1/notifications` service ingest route.
+
+`GET /api/v1/channels/{id}` also accepts a handle such as `@maravale` or a bare handle.
+`GET /api/v1/studio/videos/{id}` returns the edit aggregate: video fields plus `rights`,
+`subtitles`, and `versions`.
+
+Demo fixtures remain available at `/api/v1/channels/demo`, `/api/v1/videos/demo`, and
+`/api/v1/demo`.
 
 ## Moderation
 
@@ -55,10 +66,10 @@ authorization, per-creator scoping, and redaction before exposing those endpoint
 | `KEELTUBE_DATABASE_URL` | core | required; set in `.env` |
 | `KEELTUBE_DEV_ACTOR_ID` | core | `usr_demo` |
 | `KEELTUBE_DEV_ACTOR_TOKEN` | core | unset |
-| `KEELTUBE_PIPELINE_ADDR` | pipeline | `127.0.0.1:8081` |
-| `KEELTUBE_PIPELINE_PUBLIC_URL` | core seed | `http://localhost:8081` |
+| `KEELTUBE_DEMO_MEDIA_URL` | core seed | web demo sample |
+| `KEELTUBE_WORKER_ADDR` | core worker | `127.0.0.1:8083` |
 | `KEELTUBE_WEB_PUBLIC_URL` | core seed | `http://localhost:3000` |
-| `KEELTUBE_CORS_ORIGINS` | core, pipeline, moderation | `http://localhost:3000` |
+| `KEELTUBE_CORS_ORIGINS` | core, moderation | `http://localhost:3000` |
 | `KEELTUBE_LEDGER_PATH` | moderation | `data/ledger.jsonl` |
 | `KEELTUBE_STATE_DB` | moderation | `data/state.sqlite3` |
 | `KEELTUBE_RATE_LIMIT` | moderation | `30` mutating requests per IP per minute |

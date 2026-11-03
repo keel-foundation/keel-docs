@@ -13,7 +13,7 @@ module you are changing. The public `keel-dev` Makefile provides `make demo`, `m
 
 - Node.js 22+
 - Python 3.9+
-- Go 1.23+ for core and pipeline
+- Go 1.23+ for core (API and media worker)
 - Docker only if you are working on the private maintainer stack
 - `gh` only for organization automation
 
@@ -70,18 +70,23 @@ gofmt -l .
 Without `KEELTUBE_TEST_DATABASE_URL`, the database tests skip. The CI workflow provides a
 PostgreSQL service.
 
-### Pipeline
+### Media worker
+
+The media worker is part of `keel-core`. It requires an S3-compatible bucket and is separate from
+the API process:
 
 ```sh
-git clone https://github.com/keel-foundation/keel-pipeline.git
-cd keel-pipeline
+git clone https://github.com/keel-foundation/keel-core.git
+cd keel-core
+cp .env.example .env
+# configure KEELTUBE_DATABASE_URL and KEELTUBE_MEDIA_S3_*
 go run ./cmd/worker
 go test ./...
 go vet ./...
 gofmt -l .
 ```
 
-Pipeline listens on `127.0.0.1:8081` by default.
+The worker exposes `/health` and `/status` on `127.0.0.1:8083` by default.
 
 ### Moderation
 
@@ -180,10 +185,13 @@ in the `keel-dev` repository.
 
 ## Backend in Docker (maintainers only)
 
-The private dev stack includes PostgreSQL, the core seed job, core, pipeline, and moderation:
+The private dev stack includes PostgreSQL, the core seed job, core, moderation, and an optional
+media worker:
 
 ```sh
 docker compose -f keel-infra/devstack/apps.compose.yml up -d --build
+# optional FFmpeg worker; requires an S3-compatible bucket in devstack/.env
+docker compose -f keel-infra/devstack/apps.compose.yml --profile media up -d
 ```
 
 Then run the web app on the host:
