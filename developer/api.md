@@ -52,7 +52,7 @@ authorization, per-creator scoping, and redaction before exposing those endpoint
 | Variable | Service | Default |
 |---|---|---|
 | `KEELTUBE_CORE_ADDR` | core | `127.0.0.1:8080` |
-| `KEELTUBE_DATABASE_URL` | core | `postgres://keeltube:keeltube-dev@127.0.0.1:5432/keeltube?sslmode=disable` |
+| `KEELTUBE_DATABASE_URL` | core | required; set in `.env` |
 | `KEELTUBE_DEV_ACTOR_ID` | core | `usr_demo` |
 | `KEELTUBE_DEV_ACTOR_TOKEN` | core | unset |
 | `KEELTUBE_PIPELINE_ADDR` | pipeline | `127.0.0.1:8081` |

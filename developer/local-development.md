@@ -49,7 +49,8 @@ API:
 git clone https://github.com/keel-foundation/keel-core.git
 cd keel-core
 
-export KEELTUBE_DATABASE_URL='postgres://keeltube:keeltube-dev@127.0.0.1:5432/keeltube?sslmode=disable'
+cp .env.example .env
+# edit KEELTUBE_DATABASE_URL in .env
 go run ./cmd/seed
 go run ./cmd/api
 ```
@@ -60,7 +61,7 @@ channel, and three video fixtures.
 Database tests need a test database and serialized packages:
 
 ```sh
-KEELTUBE_TEST_DATABASE_URL='postgres://keeltube:keeltube-dev@127.0.0.1:5432/keeltube?sslmode=disable' \
+KEELTUBE_TEST_DATABASE_URL='postgres://USER:PASSWORD@HOST:PORT/DATABASE?sslmode=disable' \
   go test -p 1 ./...
 go vet ./...
 gofmt -l .
