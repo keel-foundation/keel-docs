@@ -26,12 +26,14 @@ These rights do not create an unmoderated platform. Spam, scams, fraud, piracy, 
 
 ## Status
 
-The Project is pre-alpha. The current public artifact is the local appeal demo in `keel-dev`. The
-fully built web client in `keel-web` (feed, watch, channels, search, library, creator studio, and
-creator moderation record) is private and maintainer-only while the maintainer pool is established.
-Core is backed by PostgreSQL and the web client uses a local data adapter. Upload, transcoding, HLS,
-payouts, federation, content protection, and the production staff moderation portal are not
-implemented yet. The creator app exposes the creator side of moderation; staff
-review is a separate portal with its own privileged session. The demos are honest about their
+The Project is preparing for UAT. The current public artifact is the local appeal demo in
+`keel-dev`. The fully built web client in `keel-web` (feed, watch, channels, search, library,
+creator studio, and creator moderation record) is private and maintainer-only while the maintainer
+pool is established. Core is backed by PostgreSQL and implements upload, transcoding, HLS,
+subscriptions, notifications, federation, and creator analytics. Moderation uses PostgreSQL
+workflow state and an append-only JSONL ledger. The private `keel-moderation-web` staff portal
+implements staff review with its own privileged session. Payout execution and production
+content-protection fingerprinting are not implemented yet. The web client still uses a local data
+adapter and its API adapters are the remaining UAT step. The demos are honest about their
 synthetic classifier, local-only ledger, and dev-only auth; do not treat them as the production
 system.

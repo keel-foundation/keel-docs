@@ -41,7 +41,8 @@ under a named key (`action`, `case`, or `appeal`) so the actor does not alter it
 - Resetting demo state appends a `demo.reset` record; it never truncates the ledger.
 - Export as JSONL or CSV through `GET /v1/ledger/export`.
 - The demo stores the ledger locally; it is not externally anchored.
-- Workflow state (cases, actions, appeals) is stored in SQLite; the ledger remains JSONL.
+- Workflow state (cases, actions, appeals) is stored in PostgreSQL with versioned migrations;
+  SQLite is an offline/test fallback. The ledger remains JSONL.
 
 ## Roles and actors
 
@@ -59,8 +60,9 @@ fails closed.
 
 - A PostgreSQL-backed append-only ledger.
 - A signed periodic anchor outside the database.
-- Per-creator access control over records.
-- Redaction for public aggregates.
+- Redaction for public transparency aggregates.
 - A transparency report generated from the ledger.
 
-Until those exist, the demo demonstrates the contract, not production tamper resistance.
+Creator record reads are channel-scoped through `/v1/creator/*`; the top-level demo read endpoints
+remain unauthenticated for the local demo. Until the anchor and transparency work land, the ledger
+demonstrates the contract, not production tamper resistance.

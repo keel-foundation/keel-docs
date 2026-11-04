@@ -135,10 +135,11 @@ open http://localhost:3000/studio/videos
 open http://localhost:3000/studio/moderation
 ```
 
-API mode is reserved for when core is connected; the current web app reads through the local data
-adapter. The creator studio and creator moderation record use a local workspace session; they are
-not production access control. Staff moderation is a separate portal with its own privileged
-session.
+The web app still reads through the local data adapter. Its Cloudflare Worker BFF is implemented
+and proxies core and creator-safe moderation requests; the data adapters are the remaining step.
+The creator studio and creator moderation record use a local workspace session; they are not
+production access control. Staff moderation is the separate private `keel-moderation-web` portal
+with its own privileged session.
 
 Checks:
 
@@ -185,8 +186,8 @@ in the `keel-dev` repository.
 
 ## Backend in Docker (maintainers only)
 
-The private dev stack includes PostgreSQL, the core seed job, core, moderation, and an optional
-media worker:
+The private dev stack includes PostgreSQL with pgvector, embeddings, the core seed job, core,
+moderation, and an optional media worker:
 
 ```sh
 docker compose -f keel-infra/devstack/apps.compose.yml up -d --build
@@ -201,8 +202,8 @@ cd keel-web
 npm run dev
 ```
 
-Open `http://localhost:3000`. The web app currently reads through the local data adapter; the
-backend stack is for service development.
+Open `http://localhost:3000`. The web app still reads through the local data adapter; the backend
+stack and Worker BFF are ready for the adapter phase.
 
 ## Full-stack development (maintainers only)
 
@@ -220,11 +221,12 @@ material to a public repository. If private repositories are present in the same
 ## Limitations
 
 - The public `keel-dev` demo is mocked: the signal is synthetic and the flow is scripted.
-- Core has PostgreSQL persistence for actors, channels, and videos, but upload, transcoding,
-  subscriptions, and production auth are not implemented.
-- The watch page uses sample media in this phase; HLS is not implemented yet.
-- The moderation workflow is persisted in SQLite; the audit ledger is append-only JSONL, not
-  PostgreSQL plus an external anchor.
-- The web studio and creator moderation record are fully built against the local data adapter, but
-  they are not connected to creator sessions, the core API, or the moderation service yet. Staff
-  moderation is a separate portal; the creator app does not expose moderator actions.
+- Core has PostgreSQL persistence and implements upload, transcoding/HLS in a separate worker,
+  subscriptions, notifications, analytics, federation, and session authentication. Real classifier
+  models, payout execution, and production hardening remain future work.
+- The moderation workflow is persisted in PostgreSQL, with SQLite as an offline/test fallback. The
+  audit ledger is append-only JSONL, not PostgreSQL plus an external anchor.
+- The web studio and creator moderation record are fully built against the local data adapter. The
+  Cloudflare Worker BFF is implemented, but the data adapters are not connected yet. Staff
+  moderation is the separate private `keel-moderation-web` portal; the creator app does not expose
+  moderator actions.

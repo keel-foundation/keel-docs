@@ -14,5 +14,6 @@
 - `keel-spec` — RFCs, schemas, OpenAPI.
 - `keel-core` — API and domain.
 - `keel-moderation` — signals, cases, appeals, ledger.
-- `keel-web` — viewer and watch page, creator studio, and creator moderation record. Private and maintainer-only; staff moderation is a separate portal.
+- `keel-web` — viewer and watch page, creator studio, and creator moderation record. Private and maintainer-only.
+- `keel-moderation-web` — staff moderation portal. Private and maintainer-only; separate privileged session.
 - `keel-docs` — this documentation.

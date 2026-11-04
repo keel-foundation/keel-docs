@@ -51,5 +51,5 @@ npm run dev
 ```
 
 Open `http://localhost:3000/watch/ksKCMmvOxwQ`. The web app still reads through the local data
-adapter; the watch, studio, and creator moderation surfaces will be wired when the core read APIs
-and sessions are connected.
+adapter. Its Cloudflare Worker BFF and the core/moderation endpoints are ready; the data adapters
+are the remaining UAT integration step.

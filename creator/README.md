@@ -2,13 +2,18 @@
 
 ## Current status
 
-KeelTube is pre-alpha. Core has a PostgreSQL-backed watch-page demo, and moderation has a
-role-separated creator-appeal demo. Upload, transcoding, subscriptions, payouts, federation,
-content protection, and the production staff moderation portal are not implemented yet. The
-public artifact is the local appeal demo in `keel-dev`. The fully built web client in `keel-web`
-(feed, watch, channels, search, library, creator studio, and creator moderation record) is private
-and maintainer-only while the maintainer pool is established. Staff moderation is a separate portal
-with its own privileged session.
+KeelTube is in UAT preparation. Core is PostgreSQL-backed and implements identity, catalog,
+engagement, discovery, creator uploads/transcoding/HLS, subscriptions, notifications, analytics,
+viewer reports and trust records, and ActivityPub federation. Moderation has durable PostgreSQL
+workflow state with a role-separated creator appeal flow and an append-only audit ledger. The
+private `keel-moderation-web` staff portal implements the staff review, enforcement, appeal,
+actions, ledger, and federation surfaces.
+
+The public artifact is still the local appeal demo in `keel-dev`. The fully built web client in
+`keel-web` (feed, watch, channels, search, library, creator studio, and creator moderation record)
+is private and maintainer-only while the maintainer pool is established. Its UI is complete on
+local data and its Cloudflare Worker BFF is implemented; the data adapters are the remaining UAT
+integration step. Payout execution and content-protection fingerprinting are not implemented yet.
 
 ## Guides
 
