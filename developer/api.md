@@ -18,6 +18,10 @@ The complete core contract is in `keel-spec/schemas/openapi.yaml`. The groups ar
   presigned redirects.
 - Notifications: `/api/v1/me/notifications`, unread count, read/read-all, and the optional
   `/internal/v1/notifications` service ingest route.
+- Creator moderation gateway: `/api/v1/studio/moderation/summary`, cases, actions, appeals,
+  ledger, ledger verification/export, and appeal filing. Core authenticates the viewer session and
+  calls `keel-moderation` with a server-side creator credential; the browser never receives a
+  moderation role token.
 
 `GET /api/v1/channels/{id}` also accepts a handle such as `@maravale` or a bare handle.
 `GET /api/v1/studio/videos/{id}` returns the edit aggregate: video fields plus `rights`,
@@ -46,10 +50,14 @@ Demo fixtures remain available at `/api/v1/channels/demo`, `/api/v1/videos/demo`
 
 ### Roles
 
-The service supports `creator`, `moderator`, and `appeals` roles. Set
-`KEELTUBE_CREATOR_TOKEN`, `KEELTUBE_MODERATOR_TOKEN`, and `KEELTUBE_APPEALS_TOKEN` to three
-distinct values to enforce them. If they are unset, the service runs in open local mode. The
-legacy `KEELTUBE_DEMO_TOKEN` simulates all three roles with one token.
+The service supports `creator`, `moderator`, `appeals`, and `operator` roles. The preferred
+production mode is OIDC: set `KEELTUBE_OIDC_ISSUER` and either `KEELTUBE_OIDC_JWKS_URL` or
+`KEELTUBE_OIDC_HMAC_SECRET`. The principal ID, role, and channel scope come from the `sub`, `role`,
+and `channel_ids` claims. Core mints short-lived HS256 claims for the creator moderation gateway.
+
+Role-token mode sets `KEELTUBE_CREATOR_TOKEN`, `KEELTUBE_MODERATOR_TOKEN`, and
+`KEELTUBE_APPEALS_TOKEN` to three distinct values. If neither OIDC nor role tokens are configured,
+authenticated endpoints fail closed with `503`.
 
 The appeals reviewer must differ from the original decision-maker and from the appellant. The
 moderation service enforces this; the web client must not be the only guard.
@@ -73,7 +81,15 @@ authorization, per-creator scoping, and redaction before exposing those endpoint
 | `KEELTUBE_LEDGER_PATH` | moderation | `data/ledger.jsonl` |
 | `KEELTUBE_STATE_DB` | moderation | `data/state.sqlite3` |
 | `KEELTUBE_RATE_LIMIT` | moderation | `30` mutating requests per IP per minute |
-| `KEELTUBE_DEMO_TOKEN` | moderation, web | unset |
+| `KEELTUBE_MODERATION_URL` | core | unset |
+| `KEELTUBE_MODERATION_CLAIMS_SECRET` | core | unset; 32+ characters enables OIDC-style claims |
+| `KEELTUBE_MODERATION_CLAIMS_ISSUER` | core | `keel-core` |
+| `KEELTUBE_MODERATION_CLAIMS_AUDIENCE` | core | `keel-moderation` |
+| `KEELTUBE_OIDC_ISSUER` | moderation | unset; enables OIDC mode |
+| `KEELTUBE_OIDC_AUDIENCE` | moderation | unset |
+| `KEELTUBE_OIDC_JWKS_URL` | moderation | issuer discovery |
+| `KEELTUBE_OIDC_HMAC_SECRET` | moderation | unset |
+| `KEELTUBE_OIDC_ALGORITHMS` | moderation | `RS256,ES256` or `HS256` |
 | `KEELTUBE_CREATOR_TOKEN` | moderation | unset |
 | `KEELTUBE_MODERATOR_TOKEN` | moderation | unset |
 | `KEELTUBE_APPEALS_TOKEN` | moderation | unset |
@@ -82,7 +98,7 @@ authorization, per-creator scoping, and redaction before exposing those endpoint
 
 The moderation service returns JSON errors with a `detail` field. Common statuses:
 
-- `401` — a role or demo token is required;
+- `401` — a valid bearer token is required;
 - `403` — the role is not allowed, or the reviewer is not independent;
 - `404` — the action or appeal does not exist;
 - `409` — an active action exists, the appeal window is closed, or the appeal is not allowed;

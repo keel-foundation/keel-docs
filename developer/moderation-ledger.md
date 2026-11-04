@@ -51,10 +51,9 @@ The service supports three roles:
 - `moderator` creates enforcement actions and can list the queue.
 - `appeals` decides appeals and must be independent of the original decision-maker.
 
-In role-enforced mode, each role uses a separate bearer token. The fixed demo identities are
-`creator:demo`, `demo-reviewer`, and `demo-appeals-reviewer`. In open local mode, each endpoint
-acts as its fixed demo identity. In legacy `KEELTUBE_DEMO_TOKEN` mode, one token simulates all
-three.
+In OIDC mode, the role and channel scope come from verified claims. In role-token mode, each role
+uses a separate bearer token with fixed local principals. If neither mode is configured, the service
+fails closed.
 
 ## What is still missing
 
