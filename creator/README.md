@@ -13,7 +13,8 @@ The public artifact is still the local appeal demo in `keel-dev`. The fully buil
 `keel-web` (feed, watch, channels, search, library, creator studio, and creator moderation record)
 is private and maintainer-only while the maintainer pool is established. Its UI is complete on
 local data and its Cloudflare Worker BFF is implemented; the data adapters are the remaining UAT
-integration step. Payout execution and content-protection fingerprinting are not implemented yet.
+integration step. Stripe Connect onboarding and manual settlement are implemented in core; viewer
+billing and content-protection fingerprinting are not implemented yet.
 
 ## Guides
 

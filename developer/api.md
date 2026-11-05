@@ -27,6 +27,9 @@ The complete core contract is in `keel-spec/schemas/openapi.yaml`. The groups ar
 - Reports and trust: `/api/v1/reports`, `/api/v1/me/reports`, `/api/v1/reports/{id}`, and
   `/api/v1/videos/{id}/trust`.
 - Playlists and collections: `/api/v1/me/playlists` and `/api/v1/playlists/{id}`.
+- Billing and settlement: `/api/v1/studio/billing/*` for Stripe Connect onboarding and
+  `/internal/v1/billing/settlements` for idempotent settlements. `/webhooks/stripe` verifies
+  `account.updated` and `transfer.*` events.
 - Federation: WebFinger, ActivityPub actor/outbox/inbox documents, PeerTube-compatible video
   objects, a signed policy, and internal operator routes under `/internal/v1/federation`.
 
@@ -106,6 +109,11 @@ endpoints.
 | `KEELTUBE_CLASSIFIER_URL` | moderation | unset; deterministic keyword fallback |
 | `KEELTUBE_CORE_URL` | moderation | unset; creator notification delivery |
 | `KEELTUBE_CORE_INTERNAL_TOKEN` | moderation, core | unset; internal notification ingest |
+| `KEELTUBE_STRIPE_SECRET_KEY` | core | unset; enables Stripe Connect billing |
+| `KEELTUBE_STRIPE_WEBHOOK_SECRET` | core | unset; enables the Stripe webhook route |
+| `KEELTUBE_STRIPE_CONNECT_COUNTRY` | core | `US` |
+| `KEELTUBE_STRIPE_CURRENCY` | core | `usd` |
+| `KEELTUBE_STRIPE_MIN_SETTLEMENT_CENTS` | core | `100` |
 | `KEELTUBE_MODERATION_URL` | core | unset |
 | `KEELTUBE_MODERATION_CLAIMS_SECRET` | core | unset; 32+ characters enables OIDC-style claims |
 | `KEELTUBE_MODERATION_CLAIMS_ISSUER` | core | `keel-core` |

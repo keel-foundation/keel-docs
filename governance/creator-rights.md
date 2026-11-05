@@ -32,8 +32,9 @@ creator studio, and creator moderation record) is private and maintainer-only wh
 pool is established. Core is backed by PostgreSQL and implements upload, transcoding, HLS,
 subscriptions, notifications, federation, and creator analytics. Moderation uses PostgreSQL
 workflow state and an append-only JSONL ledger. The private `keel-moderation-web` staff portal
-implements staff review with its own privileged session. Payout execution and production
-content-protection fingerprinting are not implemented yet. The web client still uses a local data
+implements staff review with its own privileged session. Stripe Connect creator onboarding and
+manual settlement are implemented in core; viewer billing and production content-protection
+fingerprinting are not implemented yet. The web client still uses a local data
 adapter and its API adapters are the remaining UAT step. The demos are honest about their
 synthetic classifier, local-only ledger, and dev-only auth; do not treat them as the production
 system.

@@ -222,8 +222,9 @@ material to a public repository. If private repositories are present in the same
 
 - The public `keel-dev` demo is mocked: the signal is synthetic and the flow is scripted.
 - Core has PostgreSQL persistence and implements upload, transcoding/HLS in a separate worker,
-  subscriptions, notifications, analytics, federation, and session authentication. Real classifier
-  models, payout execution, and production hardening remain future work.
+  subscriptions, notifications, analytics, federation, Stripe Connect onboarding/settlement, and
+  session authentication. Real classifier models, viewer billing, and production hardening remain
+  future work.
 - The moderation workflow is persisted in PostgreSQL, with SQLite as an offline/test fallback. The
   audit ledger is append-only JSONL, not PostgreSQL plus an external anchor.
 - The web studio and creator moderation record are fully built against the local data adapter. The
