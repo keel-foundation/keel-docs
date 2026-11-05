@@ -56,13 +56,20 @@ In OIDC mode, the role and channel scope come from verified claims. In role-toke
 uses a separate bearer token with fixed local principals. If neither mode is configured, the service
 fails closed.
 
+## Public transparency
+
+The service generates `GET /v1/transparency` from the workflow store and the ledger. The report
+includes enforcement actions by policy/type/source, automation and user-report shares, appeal
+volume, median and p95 decision time, reversal rates, category counts, demonetization reversals,
+methodology, limitations, and ledger validity. `GET /v1/transparency/export` supports JSON, CSV, and
+Markdown. Core proxies the JSON report at `GET /api/v1/transparency`.
+
 ## What is still missing
 
 - A PostgreSQL-backed append-only ledger.
 - A signed periodic anchor outside the database.
-- Redaction for public transparency aggregates.
-- A transparency report generated from the ledger.
+- A signed/archived transparency artifact suitable for quarterly publication.
 
 Creator record reads are channel-scoped through `/v1/creator/*`; the top-level demo read endpoints
-remain unauthenticated for the local demo. Until the anchor and transparency work land, the ledger
-demonstrates the contract, not production tamper resistance.
+remain unauthenticated for the local demo. Until the anchor work lands, the ledger demonstrates the
+contract, not production tamper resistance.

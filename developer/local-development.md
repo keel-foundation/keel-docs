@@ -223,10 +223,14 @@ material to a public repository. If private repositories are present in the same
 - The public `keel-dev` demo is mocked: the signal is synthetic and the flow is scripted.
 - Core has PostgreSQL persistence and implements upload, transcoding/HLS in a separate worker,
   subscriptions, notifications, analytics, federation, Stripe Connect onboarding/settlement, and
-  session authentication. Real classifier models, viewer billing, and production hardening remain
-  future work.
-- The moderation workflow is persisted in PostgreSQL, with SQLite as an offline/test fallback. The
-  audit ledger is append-only JSONL, not PostgreSQL plus an external anchor.
+  session authentication. Viewer billing and automatic payout scheduling remain future work.
+- The moderation workflow is persisted in PostgreSQL, with SQLite as an offline/test fallback. It
+  ships a bundled model-based classifier, optional transformer/HTTP classifiers, and a public
+  transparency report. The audit ledger is append-only JSONL, not PostgreSQL plus an external
+  anchor.
+- The devstack runs MinIO for local media storage; production uses Cloudflare R2 or another private
+  S3-compatible store. The cross-service acceptance harness is
+  `keel-infra/maintainers/scripts/acceptance.sh`.
 - The web studio and creator moderation record are fully built against the local data adapter. The
   Cloudflare Worker BFF is implemented, but the data adapters are not connected yet. Staff
   moderation is the separate private `keel-moderation-web` portal; the creator app does not expose

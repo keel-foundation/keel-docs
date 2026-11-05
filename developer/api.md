@@ -106,7 +106,9 @@ endpoints.
 | `KEELTUBE_STATE_DB` | moderation | `data/state.sqlite3`; SQLite fallback |
 | `KEELTUBE_RATE_LIMIT` | moderation | `30` mutating requests per IP per minute |
 | `KEELTUBE_SIGNAL_INGEST_TOKEN` | moderation | unset; enables `POST /v1/signals` |
-| `KEELTUBE_CLASSIFIER_URL` | moderation | unset; deterministic keyword fallback |
+| `KEELTUBE_CLASSIFIER_BACKEND` | moderation | `auto`; bundled linear model |
+| `KEELTUBE_CLASSIFIER_MODEL` | moderation | unset; Hugging Face model for the `transformers` backend |
+| `KEELTUBE_CLASSIFIER_URL` | moderation | unset; optional external classifier |
 | `KEELTUBE_CORE_URL` | moderation | unset; creator notification delivery |
 | `KEELTUBE_CORE_INTERNAL_TOKEN` | moderation, core | unset; internal notification ingest |
 | `KEELTUBE_STRIPE_SECRET_KEY` | core | unset; enables Stripe Connect billing |
